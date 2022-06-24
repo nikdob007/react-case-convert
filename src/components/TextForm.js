@@ -3,7 +3,6 @@ import React, {useState} from 'react'
 
 export default function TextForm(props) {
     const handleUpClick = () => {
-        //console.log("On Click");
         let newText = text.toUpperCase();
         setText(newText);
         props.showAlert("Text Convert Uppercase ", "success");
@@ -24,9 +23,7 @@ export default function TextForm(props) {
         props.showAlert("Text Convert Capitalize ", "success");
     }
     const handleCopyClick = () => {
-        let text = document.getElementById("myBox");
-        text.select();
-        navigator.clipboard.writeText(text.value);
+        navigator.clipboard.writeText(text);
         props.showAlert("Text Copying  ", "success");
     }
     const handleRemoveExSpaceClick = () => {
@@ -55,7 +52,7 @@ export default function TextForm(props) {
         </div>
         <div className="container my-3" style={{ color: props.mode ==='dark' ? 'white' : 'black'}}>
             <h2>Yout text summary</h2>
-            <p><b>{text.split(" ").length}</b> Words and <b>{text.length}</b> Characters</p>
+            <p><b>{text.split(/\s+/).filter((element) => { return element.length!==0}).length}</b> Words and <b>{text.length}</b> Characters</p>
             <p><b>{0.008 * text.split(" ").length}</b> Minutes read</p>
             <h3>Preview</h3>
             <p>{text.length > 0 ? text : 'Enter Something on above text area...'}</p>
